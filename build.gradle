@@ -1,0 +1,27 @@
+plugins {
+    id 'java'
+    id 'application'
+    id 'eclipse'
+    id 'idea'
+}
+
+compileJava.options.encoding = 'UTF-8'
+
+repositories {
+    mavenLocal()
+    maven { url 'http://maven.aliyun.com/nexus/content/groups/public/' }
+    mavenCentral()
+}
+
+dependencies {
+
+    compile "net.sourceforge.jexcelapi:jxl:2.6.12"
+
+    compile "com.opencsv:opencsv:3.9"
+    
+    compile "org.apache.poi:poi-ooxml:3.17"
+
+    compile "commons-codec:commons-codec:1.13"
+    
+}
+
