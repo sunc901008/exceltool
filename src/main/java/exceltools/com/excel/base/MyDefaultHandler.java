@@ -9,7 +9,6 @@ import org.apache.poi.xssf.model.StylesTable;
 import org.apache.poi.xssf.usermodel.XSSFCellStyle;
 import org.apache.poi.xssf.usermodel.XSSFRichTextString;
 import org.xml.sax.Attributes;
-import org.xml.sax.SAXException;
 import org.xml.sax.helpers.DefaultHandler;
 
 import java.util.ArrayList;
@@ -49,13 +48,13 @@ public class MyDefaultHandler extends DefaultHandler {
         BOOL, ERROR, FORMULA, INLINESTR, SSTINDEX, NUMBER,
     }
 
-    public MyDefaultHandler(ReadOnlySharedStringsTable strings, StylesTable styles) {
+    MyDefaultHandler(ReadOnlySharedStringsTable strings, StylesTable styles) {
         this.strings = strings;
         this.styles = styles;
     }
 
     @Override
-    public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+    public void startElement(String uri, String localName, String qName, Attributes attributes) {
         if ("inlineStr".equals(qName) || "v".equals(qName)) {
             vIsOpen = true;
             // Clear contents cache
@@ -189,7 +188,7 @@ public class MyDefaultHandler extends DefaultHandler {
 
     }
 
-    public List<List<String>> getRows() {
+    List<List<String>> getRows() {
         return rows;
     }
 

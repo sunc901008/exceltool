@@ -32,7 +32,7 @@ public class MergeHandler {
         String destination = null;
         if (file.exists()) {
             if (file.isDirectory()) {
-                destination = file.getAbsolutePath() + File.separator + "merge.xls";
+                destination = file.getAbsolutePath() + File.separator + System.currentTimeMillis() + "_merge.xls";
                 File[] list = file.listFiles((dir, name) -> Common.validExcelType(name));
                 if (list != null) {
                     List<File> files = Arrays.asList(list);

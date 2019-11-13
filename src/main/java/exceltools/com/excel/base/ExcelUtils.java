@@ -62,7 +62,9 @@ public class ExcelUtils {
             }
 
         }
-        workbook.write(new FileOutputStream(destination));
+        FileOutputStream fos = new FileOutputStream(destination);
+        workbook.write(fos);
+        fos.close();
         workbook.close();
     }
 
@@ -84,8 +86,6 @@ public class ExcelUtils {
      *
      * @param file file
      * @return xls 内容
-     * @throws IOException
-     * @throws InvalidFormatException
      */
     private static List<String[]> readXls(File file) throws IOException, InvalidFormatException {
         List<String[]> res = new ArrayList<>();
@@ -138,8 +138,6 @@ public class ExcelUtils {
      *
      * @param file file
      * @return xlsx 内容
-     * @throws IOException
-     * @throws InvalidFormatException
      */
     private static List<String[]> readXlsx(File file) throws IOException, OpenXML4JException, ParserConfigurationException, SAXException {
         List<String[]> res = new ArrayList<>();
@@ -200,7 +198,7 @@ public class ExcelUtils {
                 String dataFormatString = cell.getCellStyle().getDataFormatString();
                 if (DateUtil.isCellDateFormatted(cell)) {
                     //日期
-                    value = FastDateFormat.getInstance(Common.DATE_FORMAT).format(DateUtil.getJavaDate(cell.getNumericCellValue()));
+                    value = FastDateFormat.getInstance(Constant.DATE_FORMAT).format(DateUtil.getJavaDate(cell.getNumericCellValue()));
                 } else if ("@".equals(dataFormatString)
                         || "General".equals(dataFormatString)
                         || "0_ ".equals(dataFormatString)) {
