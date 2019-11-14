@@ -93,12 +93,13 @@ class MyFrame extends JFrame {
         int x2 = 135;
         int y1 = 10;
         int withLabel = 120;
+        int withTips = 180;
         int withText = 300;
         int withButton = 100;
 
         setTitle("Sunc-Excel-Tool");
         setLayout(null);
-        setBounds(500, 200, 700, 360);
+        setBounds(500, 200, 720, 360);
         setDefaultCloseOperation(WindowConstants.EXIT_ON_CLOSE);
         setResizable(false);
         setVisible(true);
@@ -133,7 +134,7 @@ class MyFrame extends JFrame {
         destText.setEditable(false);
 
         tips = new JLabel("", SwingConstants.CENTER);
-        tips.setBounds(get(240, 200, withLabel));
+        tips.setBounds(get(200, 200, withTips));
 
         add(jbFile);
         add(jbClear);
@@ -199,7 +200,7 @@ class MyFrame extends JFrame {
 
             File[] list = file.listFiles((dir, name) -> Common.validExcelType(name));
 
-            if (list == null || list.length < 1) {
+            if (list == null || list.length <= 1) {
                 tips.setText("没有需要合并的excel文件.");
                 return;
             }
