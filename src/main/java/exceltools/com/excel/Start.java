@@ -1,5 +1,7 @@
 package exceltools.com.excel;
 
+import javax.swing.*;
+
 /**
  * @author sunc
  * @date 2019/11/13 18:29
@@ -8,9 +10,8 @@ package exceltools.com.excel;
 
 public class Start {
 
-    public static void main(String args[]) {
-        MyFrame t = new MyFrame();
-        t.start();
+    public static void main(String[] args) {
+        SwingUtilities.invokeLater(MyFrame::new);
     }
 
 }

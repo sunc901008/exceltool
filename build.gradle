@@ -22,6 +22,8 @@ dependencies {
     compile "org.apache.poi:poi-ooxml:3.17"
 
     compile "commons-codec:commons-codec:1.13"
-    
+
+    compile "com.github.insubstantial:substance:7.3"
+
 }
 

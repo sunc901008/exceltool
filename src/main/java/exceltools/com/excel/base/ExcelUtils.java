@@ -100,6 +100,10 @@ public class ExcelUtils {
         workbook.close();
     }
 
+    public static void splitExcelCell(String destination, File file) throws IOException, OpenXML4JException, ParserConfigurationException, SAXException {
+
+    }
+
     private static Workbook createWorkbookIfNotExist(String fileName) throws IOException {
         Workbook wb = new HSSFWorkbook();
 
