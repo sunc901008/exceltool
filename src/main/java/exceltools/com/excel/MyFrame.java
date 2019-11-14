@@ -4,13 +4,18 @@ import exceltools.com.excel.base.Common;
 import exceltools.com.excel.base.Constant;
 import exceltools.com.excel.handler.MergeHandler;
 import exceltools.com.excel.handler.SplitHandler;
+import org.apache.poi.openxml4j.exceptions.OpenXML4JException;
 import org.pushingpixels.substance.api.skin.SubstanceBusinessLookAndFeel;
+import org.xml.sax.SAXException;
 
 import javax.swing.*;
 import javax.swing.filechooser.FileNameExtensionFilter;
+import javax.xml.parsers.ParserConfigurationException;
 import java.awt.*;
 import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 
@@ -24,7 +29,6 @@ class MyFrame extends JFrame {
     static {
         try {
             UIManager.setLookAndFeel(new SubstanceBusinessLookAndFeel());
-            UIManager.put("swing.boldMetal", false);
         } catch (UnsupportedLookAndFeelException e) {
             e.printStackTrace();
         }
@@ -75,7 +79,14 @@ class MyFrame extends JFrame {
      * 提示
      */
     private JLabel tips;
+    /**
+     * 已选择的文件/文件夹
+     */
+    private List<File> pathSelected = new ArrayList<>();
 
+    /**
+     * 面板容器
+     */
     private void container() {
 
         int x1 = 10;
@@ -135,9 +146,10 @@ class MyFrame extends JFrame {
         add(merge);
     }
 
-    private void buttonListener() {
-
-        List<File> pathSelected = new ArrayList<>();
+    /**
+     * 选择文件按钮事件
+     */
+    private void jbFileListener() {
         jbFile.addActionListener(e -> {
             tips.setText("");
             JFileChooser jfc = new JFileChooser();
@@ -150,15 +162,25 @@ class MyFrame extends JFrame {
                 pathSelected.add(jfc.getSelectedFile());
             }
         });
+    }
 
+    /**
+     * 清除按钮事件
+     */
+    private void jbClearListener() {
         jbClear.addActionListener(e -> {
             selectText.setText("");
             destText.setText("");
             pathSelected.clear();
             tips.setText("");
         });
+    }
 
-        merge.addActionListener(e -> {
+    /**
+     * 合并按钮事件
+     */
+    private void mergeListener() {
+        merge.addActionListener(al -> {
             tips.setForeground(Color.RED);
             tips.setText("");
             File file = pathSelected.size() > 0 ? pathSelected.get(0) : null;
@@ -168,21 +190,38 @@ class MyFrame extends JFrame {
             }
 
             Constant.BASE_PATH = file.getPath();
-            if (!file.isDirectory()) {
+            if (!file.exists() || !file.isDirectory()) {
                 tips.setText("请选择文件夹.");
-            } else {
-                String dest = MergeHandler.merge(file);
-                if (Common.isEmpty(dest)) {
-                    tips.setText("执行错误.");
-                } else {
-                    selectText.setText("");
-                    destText.setText(dest);
-                    tips.setForeground(Color.GREEN);
-                    tips.setText("合并成功.");
-                }
+                return;
             }
-        });
 
+            String dest = file.getAbsolutePath() + File.separator + System.currentTimeMillis() + "_merge.xls";
+
+            File[] list = file.listFiles((dir, name) -> Common.validExcelType(name));
+
+            if (list == null || list.length == 0) {
+                tips.setText("文件夹中没有excel文件.");
+                return;
+            }
+            List<File> files = Arrays.asList(list);
+            try {
+                MergeHandler.merge(dest, files);
+            } catch (OpenXML4JException | ParserConfigurationException | SAXException | IOException e) {
+                e.printStackTrace();
+                tips.setText("执行错误.");
+                return;
+            }
+            selectText.setText("");
+            destText.setText(dest);
+            tips.setForeground(Color.GREEN);
+            tips.setText("合并成功.");
+        });
+    }
+
+    /**
+     * 拆分按钮事件
+     */
+    private void splitListener() {
         split.addActionListener(e -> {
             tips.setForeground(Color.RED);
             tips.setText("待开发...");
@@ -207,11 +246,32 @@ class MyFrame extends JFrame {
                 }
             }
         });
+    }
 
+    /**
+     * 待开发按钮事件
+     */
+    private void jbWriteListener() {
         jbWrite.addActionListener(e -> {
             tips.setForeground(Color.RED);
             tips.setText("待开发...");
         });
+    }
+
+    /**
+     * 按钮事件绑定
+     */
+    private void buttonListener() {
+
+        jbFileListener();
+
+        jbClearListener();
+
+        mergeListener();
+
+        splitListener();
+
+        jbWriteListener();
     }
 
 }
