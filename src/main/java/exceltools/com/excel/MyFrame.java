@@ -91,7 +91,7 @@ class MyFrame extends JFrame {
         jbFile.addActionListener(e -> {
             tips.setText("");
             JFileChooser jfc = new JFileChooser();
-            jfc.setFileSelectionMode(JFileChooser.FILES_AND_DIRECTORIES);
+            jfc.setFileSelectionMode(JFileChooser.DIRECTORIES_ONLY);
             jfc.setCurrentDirectory(new File(Constant.BASE_PATH));
             jfc.setFileFilter(new FileNameExtensionFilter("excel文件", "xlsx", "xls", "csv"));
             if (jfc.showOpenDialog(this) == JFileChooser.APPROVE_OPTION) {
@@ -113,15 +113,14 @@ class MyFrame extends JFrame {
             tips.setText("");
             File file = pathSelected.size() > 0 ? pathSelected.get(0) : null;
             if (file == null) {
-                tips.setText("请选择文件.");
-            } else if (!Common.validExcelType(file)) {
-                tips.setText("别调皮,选择excel文件.");
+                tips.setText("请选择文件夹.");
             } else {
                 String dest = MergeHandler.merge(file);
-
+                Constant.BASE_PATH = file.getPath();
                 if (Common.isEmpty(dest)) {
                     tips.setText("未知错误.");
                 } else {
+                    selectText.setText("");
                     destText.setText(dest);
                     tips.setForeground(Color.GREEN);
                     tips.setText("合并成功.");

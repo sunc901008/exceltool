@@ -9,6 +9,7 @@ public class Constant {
 
     static final List<String> TYPES = Arrays.asList("xlsx", "xls");
 
-    public static final String BASE_PATH = System.getProperty("user.dir").substring(0, 3);
+    public static String BASE_PATH = System.getProperty("user.dir").substring(0, 3);
+
 
 }

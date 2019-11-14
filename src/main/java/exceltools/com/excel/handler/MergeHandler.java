@@ -36,7 +36,7 @@ public class MergeHandler {
                 File[] list = file.listFiles((dir, name) -> Common.validExcelType(name));
                 if (list != null) {
                     List<File> files = Arrays.asList(list);
-                    ExcelUtils.writeExcel(destination, files);
+                    ExcelUtils.writeExcelCell(destination, files);
                 }
             }
         }

@@ -1,6 +1,7 @@
 package exceltools.com.excel.base;
 
 import java.io.File;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -39,6 +40,16 @@ public class Common {
     static String datetimeFormat(Date date) {
         SimpleDateFormat sdf = new SimpleDateFormat(Constant.DATE_FORMAT);
         return sdf.format(date);
+    }
+
+    public static Date datetimeParse(String date) {
+        SimpleDateFormat sdf = new SimpleDateFormat(Constant.DATE_FORMAT);
+        try {
+            return sdf.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return new Date();
     }
 
 }
