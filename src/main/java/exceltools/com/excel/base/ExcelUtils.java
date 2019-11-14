@@ -76,6 +76,9 @@ public class ExcelUtils {
         List<CellContainer> header = new ArrayList<>();
         for (File file : files) {
             List<List<CellContainer>> tmp = readExcelCell(file);
+            if (tmp.size() <= 1) {
+                continue;
+            }
             List<CellContainer> headerTmp = tmp.remove(0);
             if (header.size() < headerTmp.size()) {
                 header = headerTmp;
