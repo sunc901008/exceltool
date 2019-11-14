@@ -90,7 +90,12 @@ public class ExcelUtils {
             int cellNumber = 0;
             for (CellContainer val : line) {
                 Cell cell = row.createCell(cellNumber++);
-                val.setCell(cell);
+                if (val == null) {
+                    cell.setCellType(CellType.STRING);
+                    cell.setCellValue("");
+                } else {
+                    val.setCell(cell);
+                }
             }
         }
         FileOutputStream fos = new FileOutputStream(destination);

@@ -199,8 +199,8 @@ class MyFrame extends JFrame {
 
             File[] list = file.listFiles((dir, name) -> Common.validExcelType(name));
 
-            if (list == null || list.length == 0) {
-                tips.setText("文件夹中没有excel文件.");
+            if (list == null || list.length < 1) {
+                tips.setText("没有需要合并的excel文件.");
                 return;
             }
             List<File> files = Arrays.asList(list);
