@@ -1,6 +1,6 @@
-package exceltools.com.excel.vo;
+package com.excel.vo;
 
-import exceltools.com.excel.base.Common;
+import com.excel.base.Common;
 import org.apache.poi.ss.usermodel.Cell;
 import org.apache.poi.ss.usermodel.CellType;
 

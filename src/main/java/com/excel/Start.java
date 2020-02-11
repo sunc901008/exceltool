@@ -1,4 +1,4 @@
-package exceltools.com.excel;
+package com.excel;
 
 import javax.swing.*;
 

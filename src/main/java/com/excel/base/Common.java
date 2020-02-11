@@ -1,4 +1,4 @@
-package exceltools.com.excel.base;
+package com.excel.base;
 
 import java.io.File;
 import java.text.ParseException;
@@ -8,7 +8,7 @@ import java.util.Date;
 /**
  * @author sunc
  * @date 2019/11/13 18:49
- * @description StringUtils
+ * @description Common
  */
 
 public class Common {

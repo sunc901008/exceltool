@@ -1,9 +1,9 @@
-package exceltools.com.excel;
+package com.excel;
 
-import exceltools.com.excel.base.Common;
-import exceltools.com.excel.base.Constant;
-import exceltools.com.excel.handler.MergeHandler;
-import exceltools.com.excel.handler.SplitHandler;
+import com.excel.base.Common;
+import com.excel.base.Constant;
+import com.excel.handler.MergeHandler;
+import com.excel.handler.SplitHandler;
 import org.apache.poi.openxml4j.exceptions.OpenXML4JException;
 import org.pushingpixels.substance.api.skin.SubstanceBusinessLookAndFeel;
 import org.xml.sax.SAXException;
